@@ -1,0 +1,300 @@
+
+/* MY CODE */
+
+@font-face{
+	font-family: D;
+	src : url(../font/DopeStyle.ttf);
+}
+
+header{
+	width:100%;
+	height:10%;
+	background-color: #000;
+}
+header img{
+
+	width:auto;
+	height:100%;
+	float:left;
+	background-color: rgba(255,255,255,0.2);
+}
+.wrapper{
+	width:70%;
+
+	margin: 0 auto;
+}
+
+header nav{
+	float:right;
+	
+}
+header nav ul li{
+	margin-top: 10px;
+	display: inline-block;
+	margin-left: 20px;
+
+}
+
+footer nav{
+    float:right;
+    
+}
+footer nav ul li{
+    margin-top: 10px;
+    display: inline-block;
+    margin-left: 20px;
+
+}
+
+header nav ul li a{
+	font-family: Ariel;
+	font-size: 14px;
+	color:yellow;
+	text-decoration: none;
+
+}
+
+.menusection{
+   height:120px;
+   position:sticky;
+   top:0px;
+   background-color: white;
+   
+}
+.menusection .wrapper nav{
+    float: left;
+
+}
+
+.menusection p{
+    font-size: 24px;
+    line-height: 50px;
+    float: left;
+    padding: 0px 20px;
+}
+
+.menusection nav ul{
+    float: left;
+    
+}
+.menusection nav ul li{
+    float: left;
+    list-style: none;  
+    position: relative;
+
+}
+.menusection nav ul li a{
+    text-decoration: none;
+    padding: 20px 14px;
+    display: block;
+}
+.menusection nav ul li ul{
+
+    width: 100px;
+    float:left;
+    display: none;
+    position: absolute;
+    background-color: yellow;
+    padding: 0px;
+}
+
+
+.menusection nav ul li ul li:hover{
+    background-color: red;
+}
+
+.menusection nav ul li:hover ul{
+    display: block;
+}
+
+
+.firstsection{
+    clear:left;
+	height:50%;
+    overflow: auto;
+}
+.video-box{
+	width:100%;
+	height: auto;
+	background-color: #222;
+}
+
+.index-intro{
+    float:left;
+    clear: both;
+	background-color: #333;
+    height: auto;
+	width:100%;
+	line-height: 20px;
+}
+
+iframe{
+	width:100%;
+	align-content: center;
+}
+
+.index-intro h2{
+	text-align: center;
+	font-size: 20px;
+	width:100%;
+    height: auto;
+	text-transform: uppercase;
+}
+
+.index-news{
+    width:100%;
+    height:70%;
+    padding:80px 0;
+    background-color: #CCC;
+
+
+}
+
+.index-news article{
+    width:20%;
+    margin-left: 20px;
+    height:200px;
+    overflow: auto;
+    float:left;
+}
+
+.news-img{
+    border: 5px solid red;
+    width: 50%;
+    height: 50%;
+    margin: 25% 25%;
+    background-color: #000;
+
+    transition: all 1s ease-in-out;
+}
+
+
+.index-news article:hover .news-img{
+    width:70%;
+    height: 70%;
+    margin: 15% 15%;
+
+}
+
+
+table,th,td{
+    border: 2px double black;
+    margin:3px;
+    padding:5px 20px;
+
+}
+
+
+
+tr:hover{
+    background-color: #222;
+}
+
+
+
+.ltor{
+    display: inline-block;
+    margin:0 auto;
+}
+
+.aaa{
+    
+    background-color: white;
+}
+footer{
+    width:100%;
+    background-color: white;   
+    position: fixed; 
+    float:left;
+    
+    height:20%;
+    bottom:0px;
+}
+
+.form-box{
+
+    width: 100%;
+    height: 200px;
+
+    background-color: #555;
+
+}
+
+.form-box form input{
+    width:40%;
+    height: 10%;
+    border:0.5px solid grey;
+    padding: 0px 10px;
+}
+
+.form-radio{
+    clear: both;
+    width:1% !important;
+    float:left;
+
+
+}
+.form-box form p{
+    
+    color:yellow;
+    font-family: Lato;
+    float:left;
+    height:10%;
+}
+
+.form-box form textarea{
+    float:left;
+        
+    clear:both;
+    width: 60%;
+    height:50%;
+}
+
+.form-box form button{
+    float:left;
+    clear:both;
+    height:10%;
+    background-color: orange;
+    color:black;
+}
+
+.form-box form button:hover{
+    background-color: blue;
+    color: yellow;
+}
+
+.gallery-box .wrapper{
+    background-color: black;
+
+
+}
+
+.img-single{
+    width: 100px;
+    height:50px;
+    margin:20px 20px;
+    position: relative;
+
+}
+.img-single img{
+    width: 100%;
+    height: 100%;
+
+    
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+#map{
+    height: 500px;
+    width: 100%;
+}
+
+.footerPos{
+    height:20%;
+    width:100%;
+}
