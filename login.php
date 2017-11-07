@@ -1,3 +1,12 @@
+<?php
+
+session_start();
+if (isset($_SESSION['username'])) {
+  header("location:index.php");
+}
+include "register.php";
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,8 +20,59 @@
 
   <script>
     $(document).ready(function(){
+      emptyCheck("#lUsername",".loginInput .unameEMsg"," Username is empty!");
+      emptyCheck("#lpassword",".loginInput .pwEMsg"," Password is empty!");
 
+      emptyCheck("#rName",".regisInput .nEMsg"," Name is empty!");
+      emptyCheck("#rAge",".regisInput .ageEMsg"," Age is empty!");
+      emptyCheck("#rEmail",".regisInput .emailEMsg"," Email is empty!");
+      emptyCheck("#rUsername",".regisInput .unameEMsg"," Username is empty!");
+      emptyCheck("#rPassword",".regisInput .pwEMsg"," Password is empty!");
+
+      restrictKeypress("#rName", "^[a-zA-Z\b]+$");
+      restrictKeypress("#rAge", "^[0-9\b]+$");
+      restrictKeypress("#rEmail", "^[a-zA-Z0-9@._-\b]+$");
+      restrictKeypress("#rUsername", "^[a-zA-Z0-9\b]+$");
+      restrictKeypress("#rPassword", "^[a-zA-Z0-9\b]+$");
+
+      $("#rPassword").on("focusout", function(){
+        if($("#rPassword").val().length < 8){
+         $(".pwEMsg").text(" Password Length should be at least 8.");
+       } 
+     });
     });
+
+    function emptyCheck(inputCLass, msgCLass, msg){
+      $(inputCLass).on("keyup",function(){
+        if($(inputCLass).val().length == 0){ $(msgCLass).text(msg);  }
+        else{ $(msgCLass).text(""); }   
+      });
+    }
+
+
+    function restrictKeypress(inputCLass, regStr){
+      $(inputCLass).on('keypress', function (e) {
+        var rex = new RegExp(regStr);
+        var key = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+        if (!rex.test(key)) {
+         e.preventDefault();
+         return false;
+       }
+     });
+    }
+
+    function validateLogin(){
+      if($("#lUsername").val() == ""){ return false; }
+      if($("#lPassword").val() == ""){ return false; }
+    }
+
+    function validateRegister(){
+      if($("#rName").val() ==   ""){ return false; }
+      if($("#rAge").val() == ""){ return false; }
+      if($("#rEmail").val() == ""){ return false; }
+      if($("#rUsername").val() == ""){ return false; }
+      if($("#rPassword").val().length < 8){ $(".pwEMsg").text(" Password Length should be at least 8."); return false; }
+    }
 
   </script>
   <title></title>
@@ -22,7 +82,6 @@
     <div class="header">
       <div class="navBar">
         <ul>
-
           <li class="leftList">
             <img class="headerImg" src="img/home.png">
             <a href="index.php">HOME</a>
@@ -34,20 +93,35 @@
           <li class="leftList">
             <img class="headerImg" src="img/search.png">
             <input class="search" type="search" name="">
-          </li>
-          <li class="rightList">
-            <img class="headerImg" src="img/login.png"> <a href="login.php">LOGIN/REGISTER</a>
-          </li>
+          </li>          
 
-          <li class="rightList">
+          <?php 
+          if(!isset($_SESSION['username'])) {
+            echo '<li class="rightList">
+            <img class="headerImg" src="img/login.png"> 
+            <a href="login.php">LOGIN/REGISTER</a>
+            </li>'; 
+          }
+          else{
+            echo '
+            <li class="rightList">            
+            <a href="accountSetting.php">Welcome,'.$_SESSION['username'].'</a>
+            </li>
+            <li class="rightList">
+            <img class="headerImg" src="img/logout.png">  
+            <a href="logout.php">LOGOUT</a>
+            </li>
+            <li class="rightList">
             <div class="menuBar">   
-              <img class="headerImg" class="menuImg" src="img/menu.png">          
-              <div class="dropDown">                
-                <a href="3">ACCOUNT SETTING<img class="headerImg" src="img/user.png"></a>
-                <a href="upload.php">UPLOAD<img class="headerImg" src="img/login.png"></a> 
-              </div>
+            <img class="headerImg" class="menuImg" src="img/menu.png">          
+            <div class="dropDown">                
+            <a href="accountSetting.php">ACCOUNT SETTING<img class="headerImg" src="img/user.png"></a>
+            <a href="upload.php">UPLOAD<img class="headerImg" src="img/login.png"></a>  
             </div>
-          </li>
+            </div>
+            </li>';
+          }               
+          ?>  
         </ul>
 
 
@@ -55,81 +129,87 @@
     </div>
 
     <div class="loginForm">
-      <form action="index.php" method="POST">
+      <form action="session.php" method="POST" onsubmit="return validateLogin()">
         <br>
         <h2>Login</h2>
         <div class="loginInput">
-          <div class="leftBar">USERNAME</div>
-          <input class="input" type="text" name="uname" placeholder=" Username" required>        
-        </div>
-        <div class="loginInput">
-          <div class="leftBar">PASSWORD</div>
-          <input class="input" type="password" name="password" placeholder=" Password" required>          
-        </div>
-        <div class="loginInput">
-          <input class="btn" type="submit" value="LOGIN">
-        </div>
-      </form>
-    </div>
-
-    <div class="registerForm">
-      <form action="/register.php" method="POST">
-<br>
-        <h2>Register</h2>
-        <div class="regisInput">
-          <div class="leftBar">NAME</div>
-          <input class="input" type="text" name="name" placeholder=" Name" required>
-        </div>
-        <div class="regisInput">
-          <div class="leftBar">AGE</div>
-          <input class="input" type="text" name="age" placeholder=" Age" required>
-        </div>
-        <div class="regisInput">
-          <div class="leftBar">GENDER</div>
-          <select name="gender">
-            <option value="male">male</option>
-            <option value="female">female</option>
-          </select>
-        </div>
-        <div class="regisInput">
-          <div class="leftBar">USERNAME</div>
-          <input class="input" type="text" name="username" placeholder=" Username" required>
-        </div>
-        <div class="regisInput">
-          <div class="leftBar">PASSWORD</div>
-          <input class="input" type="password" name="password" placeholder=" Password" required>
-        </div>
-        <div class="regisInput">
-          <input class="checkbox" type="checkbox" required><p>I agree the terms and conditions.</p>
-        </div>
-        <div class="regisInput">
-          <input class="btn" type="submit" name="submit" value="REGISTER">
+          <div class="leftBar"><p>USERNAME</p>
+            <p style="color:red" class="unameEMsg"></p></div>
+            <input id="lUsername" class="input" type="text" name="username" placeholder=" Username" required>        
+          </div>
+          <div class="loginInput">
+            <div class="leftBar"><p>PASSWORD</p>
+              <p style="color:red" class="pwEMsg"></p></div>
+              <input id ="lpassword" class="input" type="password" name="password" placeholder=" Password" required>          
+            </div>
+            <div class="loginInput">
+              <input class="btn" type="submit" value="LOGIN">
+            </div>
+          </form>
         </div>
 
+        <div class="registerForm">
+          <form action="register.php" method="POST" onsubmit="return validateRegister()">
+            <br>
+            <h2>Register</h2>
+            <div class="regisInput">
+              <div class="leftBar"><p>NAME</p>
+                <p style="color:red" class="nEMsg"></p></div>
+                <input id="rName" class="input" type="text" name="name" placeholder=" Name" required>
+              </div>
+              <div class="regisInput">
+                <div class="leftBar"><p>AGE</p>
+                  <p style="color:red" class="ageEMsg"></p></div>
+                  <input id="rAge" class="input" type="text" name="age" placeholder=" Age" maxlength="3" required>
+                </div>
+                <div class="regisInput">
+                  <div class="leftBar"><p>GENDER</p></div>
+                  <select name="gender">
+                    <option value="male">male</option>
+                    <option value="female">female</option>
+                  </select>
+                </div>
 
-      </form>
-    </div>
+                <div class="regisInput">
+                  <div class="leftBar"><p>USERNAME</p>
+                    <p style="color:red" class="unameEMsg"></p></div>
+                    <input id="rUsername" class="input" type="text" name="username" placeholder=" Username" maxlength="20" required>
+                  </div>
+                  <div class="regisInput">
+                    <div class="leftBar"><p>EMAIL</p>
+                      <p style="color:red" class="emailEMsg"></p></div>
+                      <input id="rEmail" class="input" type="text" name="email" placeholder=" Email" maxlength="30" required>
+                    </div>
+                    <div class="regisInput">
+                      <div class="leftBar"><p>PASSWORD</p>
+                        <p style="color:red" class="pwEMsg"></p></div>
+                        <input id="rPassword" class="input" type="password" name="password" placeholder=" Password" maxlength="20" required>
+                      </div>
+                      <div class="regisInput">
+                        <input class="checkbox" type="checkbox" required>
+                        <p>I agree the terms and conditions.</p>
+                      </div>
+                      <div class="regisInput">
+                        <input class="btn" type="submit" name="submit" value="REGISTER">
+                      </div>
 
-    <datalist id= "gender">
-      <option value="male">Male</option>
-      <option value="female">Female</option>
-    </datalist>
+
+                    </form>
+                  </div>
+
+
+
+                  <div class="footer"></div>
 
 
 
 
 
-    <div class="footer"></div>
+                </div>
 
 
 
 
-
-  </div>
-
-
-
-
-</body>
-</html>
+              </body>
+              </html>
 

@@ -1,9 +1,13 @@
+<?php 
+session_start();	
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 	<?php
-		include 'ajax.php';
+	include 'database.php';
+
 	?>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,25 +18,22 @@
 	<link rel="stylesheet" type="text/css" href="css/styleGallery.css">
 	
 	<script>
+		var leftBarVisible = false;
 		$(document).ready(function(){
-			$("#img").on("change", function()
-			{
-				var reader = new FileReader();
-
-				reader.addEventListener("load", function(e){
-					$('#juimg').attr('src', e.target.result);
-				});
-				reader.readAsDataURL(this.files[0]);
-				
-			});
-			//
 			var bannerTimeOutID = window.setInterval(bannerScroll, 4000);
 
 
-			$(".banner").hover(function(){
+			$(".bannerContainer").hover(function(){
 				clearInterval(bannerTimeOutID);
 			}, function(){
 				bannerTimeOutID = window.setInterval(bannerScroll, 4000);
+			});
+
+			$("#leftBarButton").on("click",function(){
+				$(".leftSidebar").css({
+					"width" : (leftBarVisible) ? "0%" : "100%",
+					 "left" : (leftBarVisible) ? "-100%" : "0%"});
+				leftBarVisible = !leftBarVisible;
 			});
 
 			
@@ -68,31 +69,31 @@
 			
 			switch(posLeft){
 				case -800:				
+				if(dir==1){
+					$(idstr).css('display','none');
+				}	
+				$(idstr).animate({'left':(dir == 1) ? 1600 : 0}, time, "swing", function(){
 					if(dir==1){
-						$(idstr).css('display','none');
-					}	
-					$(idstr).animate({'left':(dir == 1) ? 1600 : 0}, time, "swing", function(){
-						if(dir==1){
-							$(idstr).css('display','inline');
-						}
-					});			
-					break;
-				case 0:
-					$(idstr).animate({'left':(dir == 1) ? -800 : 800}, time);
-					break;
-				case 800:
-					$(idstr).animate({'left':(dir == 1) ? 0 : 1600}, time);
-					break;
-				case 1600:
-					if(dir==-1){
-						$(idstr).css('display','none');
+						$(idstr).css('display','inline');
 					}
-					$(idstr).animate({'left':(dir == 1) ? 800 : -800}, time, "swing", function(){
-						if(dir==-1){
-							$(idstr).css('display','inline');
-						}
-					});
-					break;
+				});			
+				break;
+				case 0:
+				$(idstr).animate({'left':(dir == 1) ? -800 : 800}, time);
+				break;
+				case 800:
+				$(idstr).animate({'left':(dir == 1) ? 0 : 1600}, time);
+				break;
+				case 1600:
+				if(dir==-1){
+					$(idstr).css('display','none');
+				}
+				$(idstr).animate({'left':(dir == 1) ? 800 : -800}, time, "swing", function(){
+					if(dir==-1){
+						$(idstr).css('display','inline');
+					}
+				});
+				break;
 			}
 		}
 		//banner scroll over time, called every 3s, animation last 2s only
@@ -112,7 +113,9 @@
 		<div class="header">
 			<div class="navBar">
 				<ul>
-					
+					<li class="leftList">
+						<img class="headerImg" src="img/leftBar.png" id="leftBarButton">
+					</li>
 					<li class="leftList">
 						<img class="headerImg" src="img/home.png">
 						<a href="index.php">HOME</a>
@@ -125,22 +128,36 @@
 						<img class="headerImg"  src="img/search.png">
 						<input class="search" type="search" name="">
 					</li>
-					<li class="rightList">
-						<img class="headerImg" src="img/login.png">	<a href="login.php">LOGIN/REGISTER</a>
-					</li>
+					
+					<?php 
+					if(!isset($_SESSION['username'])) {
+						echo '<li class="rightList">
+						<img class="headerImg" src="img/login.png">	
+						<a href="login.php">LOGIN/REGISTER</a>
+						</li>';	
 
-					<li class="rightList">
+					}
+					else{
+						echo '
+			            <li class="rightList">            
+			              <a href="accountSetting.php">Welcome,'.$_SESSION['username'].'</a>
+			            </li>
+						<li class="rightList">
+						<img class="headerImg" src="img/logout.png">	
+						<a href="logout.php">LOGOUT</a>
+						</li>
+						<li class="rightList">
 						<div class="menuBar">		
-							<img class="headerImg" class="menuImg" src="img/menu.png">					
-							<div class="dropDown">								
-								<a href="3">ACCOUNT SETTING<img class="headerImg" src="img/user.png"></a>
-								<a href="upload.php">UPLOAD<img class="headerImg" src="img/login.png"></a>	
-							</div>
+						<img class="headerImg" class="menuImg" src="img/menu.png">					
+						<div class="dropDown">								
+						<a href="accountSetting.php">ACCOUNT SETTING<img class="headerImg" src="img/user.png"></a>
+						<a href="upload.php">UPLOAD<img class="headerImg" src="img/login.png"></a>	
 						</div>
-					</li>
+						</div>
+						</li>';
+					}		            
+					?>					
 				</ul>
-
-
 			</div>			
 		</div>
 
@@ -159,35 +176,41 @@
 
 		<div class="gallery">
 			<?php 
-				$imgRes = $mysqli->query("select * from imgdb");
-				while($row = $imgRes->fetch_assoc()){
-					echo '
-					<div class="slot">
-						<div class="imgSlot">
-							<img class="galleryImg" src="'.$row["imgAddr"].'">
-						</div>
-						<div class="descriptSlot">
-							<p class="imgDescript">'.$row["imgDescript"].'</p>
-						</div>
-					</div>
-					';
-				}
-			 ?>		
+			$imgRes = $mysqli->query("select * from imgdb");
+			while($row = $imgRes->fetch_assoc()){
+				echo '
+				<div class="slot">
+				<div class="imgSlot">
+				<img class="galleryImg" src="'.$row["imgAddr"].'">
+				</div>
+				<div class="descriptSlot">
+				<p class="imgDescript">'.$row["imgDescript"].'</p>
+				</div>
+				</div>
+				';
+			}
+			?>		
 
+		</div>
+
+		<div class="leftSidebar">
+			<h3>Categories</h3>
+			<ul>
+				<li class="cateList"><a href="">1234</a></li>
+				<li class="cateList"><a href="">1234</a></li>
+				<li class="cateList"><a href="">1234</a></li>
+				<li class="cateList"><a href="">1234</a></li>
+				<li class="cateList"><a href="">1234</a></li>
+				<li class="cateList"><a href="">1234</a></li>
+				<li class="cateList"><a href="">1234</a></li>
+			</ul>
 		</div>
 
 
 
 
 		<div class="footer">
-			<h2>Image to be uploaded:</h2><br>
-			<img class="footerImg" src="" id="juimg">
-			<br>
-			<form action="fileu.php" enctype="multipart/form-data" method="post">
-				<input type="file" name="fileToUpload" id="img"><br>
-				<input type="text" name="imgDescript" id="imgD" placeholder="Image Description"><br>
-				<button type="submit" submit="test.html" name="submit">upload</button>
-			</form>
+			
 		</div>
 
 	</div>

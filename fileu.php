@@ -1,6 +1,9 @@
 <?php 
-include "ajax.php";
+include "database.php";
 $target_dir = "uploadImgs/";
+if($_FILES["fileToUpload"]["name"]==""){
+	header("Location: upload.php");
+}
 //basename is extracting the file name with extension without the parent path
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 printf(basename($_FILES["fileToUpload"]["name"]));
@@ -30,11 +33,8 @@ $query = $mysqli->query("insert into imgDB(userName, imgAddr,imgDescript) values
 
 
 //redirect back to index.php
-echo '<script type="text/javascript">
-           window.location = "index.php"
-      </script>';
+//echo '<script type="text/javascript">window.location = "index.php"</script>';
 
-//	header('Location: index.php'); serve the same purpose
-
+header('Location: index.php'); 
 ?>
 
