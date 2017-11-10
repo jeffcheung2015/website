@@ -133,13 +133,15 @@ include "register.php";
         <br>
         <h2>Login</h2>
         <div class="loginInput">
+          <p style="color:red" class="unameEMsg"></p>
           <div class="leftBar"><p>USERNAME</p>
-            <p style="color:red" class="unameEMsg"></p></div>
+            </div>
             <input id="lUsername" class="input" type="text" name="username" placeholder=" Username" required>        
           </div>
           <div class="loginInput">
+            <p style="color:red" class="pwEMsg"></p>
             <div class="leftBar"><p>PASSWORD</p>
-              <p style="color:red" class="pwEMsg"></p></div>
+              </div>
               <input id ="lpassword" class="input" type="password" name="password" placeholder=" Password" required>          
             </div>
             <div class="loginInput">
@@ -153,13 +155,16 @@ include "register.php";
             <br>
             <h2>Register</h2>
             <div class="regisInput">
-              <div class="leftBar"><p>NAME</p>
-                <p style="color:red" class="nEMsg"></p></div>
+              <p style="color:red" class="nEMsg"></p>
+              <div class="leftBar"><p>NAME</p>                
+              </div>
                 <input id="rName" class="input" type="text" name="name" placeholder=" Name" required>
               </div>
               <div class="regisInput">
-                <div class="leftBar"><p>AGE</p>
-                  <p style="color:red" class="ageEMsg"></p></div>
+                <p style="color:red" class="ageEMsg"></p>
+                <div class="leftBar">
+                    <p>AGE</p>
+                  </div>
                   <input id="rAge" class="input" type="text" name="age" placeholder=" Age" maxlength="3" required>
                 </div>
                 <div class="regisInput">
@@ -171,18 +176,21 @@ include "register.php";
                 </div>
 
                 <div class="regisInput">
+                  <p style="color:red" class="unameEMsg"></p>
                   <div class="leftBar"><p>USERNAME</p>
-                    <p style="color:red" class="unameEMsg"></p></div>
+                    </div>
                     <input id="rUsername" class="input" type="text" name="username" placeholder=" Username" maxlength="20" required>
                   </div>
                   <div class="regisInput">
+                    <p style="color:red" class="emailEMsg"></p>
                     <div class="leftBar"><p>EMAIL</p>
-                      <p style="color:red" class="emailEMsg"></p></div>
+                      </div>
                       <input id="rEmail" class="input" type="text" name="email" placeholder=" Email" maxlength="30" required>
                     </div>
                     <div class="regisInput">
+                      <p style="color:red" class="pwEMsg"></p>
                       <div class="leftBar"><p>PASSWORD</p>
-                        <p style="color:red" class="pwEMsg"></p></div>
+                        </div>
                         <input id="rPassword" class="input" type="password" name="password" placeholder=" Password" maxlength="20" required>
                       </div>
                       <div class="regisInput">

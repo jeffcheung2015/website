@@ -175,8 +175,10 @@ body{
 	position: relative;
 	border-radius: 4px;
 	left:20px;
-	bottom:5px;
 	width: 200px;
+	background-color: white;
+	padding:2px 5px;
+	font-weight: bold;
 
 	transition: width 1s ease-in-out;
 	-webkit-transition: width 1s ease-in-out;
@@ -187,6 +189,10 @@ body{
 }
 .header .navBar ul .search:focus{
 	width: 400px;
+	background-color: #ddd;
+	color:black;
+	border:1px solid green;
+
 }
 
 .header .navBar ul .rightList{
@@ -247,10 +253,12 @@ body{
 .gallery{
 	grid-area: gallery;
 	background-color: #eee;
-	min-height: 250px;
+
+	min-height: 500px;
 	border-radius: 3px;
-		
+
 }
+
 .gallery .slot{
 
 	background-color: white;
@@ -305,9 +313,7 @@ body{
 	height:50px;
 
 	top:180px;
-	left:25px;
-
-	
+	left:25px;	
 }
 
 .gallery .slot .descriptSlot .imgDescript{
@@ -317,6 +323,57 @@ body{
 	transform: translate(-50%, -50%);
 }
 
+.gallery .pageBar{
+	position: relative;
+}
+.gallery .pageBar ul{
+	position: absolute;
+	left:50%;
+	transform: translate(-50%,0%);
+
+}
+.gallery .pageBar ul li{
+	display: inline;
+	background-color: white;
+	padding: 5px 10px;
+	border: 1px solid black;
+	border-radius: 5px; 
+}
+
+
+/*modal*/
+.modal{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	display:none;
+}
+
+.modal .blackenedArea{
+
+	background-color: rgba(0,0,0,0.5);
+	position: fixed;
+	z-index:10;
+
+	width: 100%;
+	height: 100%;
+}
+
+.modal .modalBody .modalBodyImg{
+	background-color: white;
+	position: fixed;
+	z-index: 12;
+	padding: 20px 20px;
+	border:1px solid black;
+
+	top:50%;
+	left:50%;
+	transform: translate(-50%,-50%);
+	min-width: 20%;
+	min-height: 20%;
+	max-width: 70%;
+	max-height: 70%;
+}
 
 
 /*footer*/
@@ -466,7 +523,7 @@ body{
 	position: relative;
 	left:-100%;
 
-	border-right: 3px dotted black;
+	border-right: 5px solid black;
 	background-color: #ccc;
 
 	transition-duration: 0.5s;
@@ -475,15 +532,24 @@ body{
     -o-transition-duration: 0.5s;
     -ms-transition-duration: 0.5s;
 }
+.leftSidebar h3{
+	text-align: center;
+	font-weight: bold;
+	color: #666;
+	border-bottom:3px solid black;
 
-
-.leftSidebar ul .cateList li a{
-	margin: 25px 0px;
+}
+.leftSidebar ul li {
+	margin: 5px 0px;
 	position: relative;
-	width: 90%;
+	width: 95%;
+	left:1%;
 	border:3px solid black;
 	background-color: white;
+	padding: 10px 0px;
 }
+
+
 /*wrapper*/
 .wrapper{
 	display: grid;
@@ -558,25 +624,42 @@ body{
 	display: block;
 	position: relative;
 	width: 70%;
-	left:10%;
+	left:30px;
 
-	margin: 5% 0px;
+	margin: 10px 0px;
 	
-	padding: 10% 3%;
+	
 	background-color: #ddd;
 	
 	border-radius: 5px;
 	font-family:Arial Black;
 	font-weight: bold;
+	float:left;
 }
 
 
-
-.loginForm .loginInput .input, .registerForm .regisInput .input,
 .loginForm .loginInput .leftBar, .registerForm .regisInput .leftBar{
 	position: relative;
-	top:-25px;
-	width: 80%;
+
+	width: 40%;
+	
+	padding:10px 0px;
+	background-color: #999;
+	
+}
+.loginForm .loginInput .leftBar p, .registerForm .regisInput .leftBar p{
+	float: left;
+}
+
+.loginForm .loginInput .input, .registerForm .regisInput .input,
+.registerForm .regisInput select
+ {
+
+
+	width: 58%;
+	padding:8px 0px;
+	background-color: #ddd;
+
 }
 
 .loginForm .loginInput .btn, .registerForm .regisInput .btn{
@@ -588,19 +671,17 @@ body{
 
 .loginForm .loginInput .leftBar, .registerForm .regisInput .leftBar,
  .registerForm .regisInput .checkbox{
-	float: left;	
+	float: left;		
+			
 }
 
 .loginForm .loginInput .input, .registerForm .regisInput .input,
- .registerForm .regisInput select, .registerForm .regisInput p{
-	float: left;		
+ .registerForm .regisInput select{
+	float: right;
+
 }
 
-.registerForm .regisInput select{
-	width:100px;
-	position: relative;
-	top:-10px;
-}
+
 .btn{
 	border-radius: 10px;
 	font-family:Arial Black;
@@ -608,12 +689,6 @@ body{
 }
 .btn:hover{
 	background-color: #5cd65c;
-}
-
-.loginForm input[class="input"]:focus, .registerForm input[class="input"]:focus{
-
-	border-bottom: 5px solid blue;
-
 }
 
 /*registerForm*/
@@ -658,7 +733,9 @@ body{
 
 .userProfile{
 	grid-area: userProfile;
-	
+	border-left: 3px solid black;
+	border-right: 3px solid black;
+
 }
 
 

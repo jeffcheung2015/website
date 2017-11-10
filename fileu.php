@@ -1,12 +1,15 @@
 <?php 
 include "database.php";
+
+session_start();
+
 $target_dir = "uploadImgs/";
 if($_FILES["fileToUpload"]["name"]==""){
 	header("Location: upload.php");
 }
 //basename is extracting the file name with extension without the parent path
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-printf(basename($_FILES["fileToUpload"]["name"]));
+
 $uploadOk = 1;
 //$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
@@ -28,13 +31,13 @@ if(isset($_POST["submit"])) {
 move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
 
 $imgd = $_POST["imgDescript"];
+
+echo $_SESSION['username'];
 //database insert
-$query = $mysqli->query("insert into imgDB(userName, imgAddr,imgDescript) values ('admin','$target_file', '$imgd')");
+$query = $mysqli->query("insert into imgDB(userName, imgAddr,imgDescript) values ('".$_SESSION['username']."','$target_file', '$imgd')");
 
 
 //redirect back to index.php
-//echo '<script type="text/javascript">window.location = "index.php"</script>';
-
 header('Location: index.php'); 
 ?>
 

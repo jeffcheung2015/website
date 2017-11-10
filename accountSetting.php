@@ -83,8 +83,16 @@
 
 				echo "<p>Name:".$_SESSION['name']."<br>".
 				"Age:".$_SESSION['age']."<br>".
-				"Gender:".$_SESSION['gender']."<br>"."</p>";
+				"Gender:".$_SESSION['gender']."<br>"."</p>
+				Uploaded Images:";
 			?>
+			<p>Avatar:</p>
+			<p>Name:</p>
+			<p>Age:</p>
+			<p>Gender:</p>
+			<p>Email:</p>
+			<p>Uploaded Images:</p>
+
 		</div>
 
 

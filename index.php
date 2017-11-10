@@ -175,6 +175,7 @@ session_start();
 
 
 		<div class="gallery">
+
 			<?php 
 			$imgRes = $mysqli->query("select * from imgdb");
 			while($row = $imgRes->fetch_assoc()){
@@ -184,13 +185,30 @@ session_start();
 				<img class="galleryImg" src="'.$row["imgAddr"].'">
 				</div>
 				<div class="descriptSlot">
-				<p class="imgDescript">'.$row["imgDescript"].'</p>
+				<p class="imgDescript">
+				Description:'.$row["imgDescript"].
+				'<br>Uploader: '.$row['userName'].'</p>
+
 				</div>
 				</div>
 				';
 			}
 			?>		
 
+			<div class="pageBar">
+				<ul>
+					<li>1</li>
+					<li>1</li>
+					<li>1</li>
+					<li>1</li>
+					<li>1</li>
+					<li>1</li>
+					<li>1</li>
+					<li>1</li>
+					<li>1</li>
+					<li>1</li>
+				</ul>
+			</div>
 		</div>
 
 		<div class="leftSidebar">
@@ -206,16 +224,26 @@ session_start();
 			</ul>
 		</div>
 
-
-
-
-		<div class="footer">
-			
+		<div class="modal">
+			<div class="blackenedArea"></div>
+			<div class="modalBody">
+				<img class="modalBodyImg" src="">	
+			</div>				
 		</div>
-
+		<div class="footer">			
+		</div>
 	</div>
+<script>
+	$(".slot").on("click", function(e){
+		$(".modal").css("display","block");
+		$(".modalBodyImg").attr('src',$(this).find(".galleryImg").attr('src'));
+	});
 
+	$(".blackenedArea").on("click", function(){
+		$(".modal").css("display","none");
+	});
 
+</script>
 
 
 </body>
